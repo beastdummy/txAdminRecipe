@@ -1,0 +1,278 @@
+$engine: 3
+$onesync: on
+
+name: "oxe Base"
+version: "1.0.0"
+author: "Enjoy"
+description: >
+  Only includes the base including qbx_core and any free releases will still
+  require you to insert your [oxePack] folder from keymaster.
+
+tasks:
+  # ------------------------------------------------------------
+  # 0) Workspace
+  # ------------------------------------------------------------
+  - action: ensure_dir
+    path: ./tmp
+
+  # ------------------------------------------------------------
+  # 1) Base files (from your txAdminRecipe repo)
+  # ------------------------------------------------------------
+  - action: download_github
+    src: https://github.com/oxe-Server-Pack/txAdminRecipe/
+    ref: main
+    dest: ./tmp/oxe
+
+  - action: move_path
+    src: ./tmp/oxe/server.cfg
+    dest: ./server.cfg
+
+  - action: move_path
+    src: ./tmp/oxe/server_configs
+    dest: ./server_configs
+
+  - action: move_path
+    src: ./tmp/oxe/myLogo.png
+    dest: ./myLogo.png
+    overwrite: true
+
+  # ------------------------------------------------------------
+  # 2) Resource folders
+  # ------------------------------------------------------------
+  - action: ensure_dir
+    path: ./resources
+
+  - action: ensure_dir
+    path: ./resources/[cfx-default]
+
+  - action: ensure_dir
+    path: ./resources/[ox]
+
+  - action: ensure_dir
+    path: ./resources/[core]
+
+  - action: ensure_dir
+    path: ./resources/[standalone]
+
+  - action: ensure_dir
+    path: ./resources/[voice]
+
+  - action: ensure_dir
+    path: ./resources/[qbx_addons]
+
+  - action: ensure_dir
+    path: ./resources/[zsx]
+
+  - action: ensure_dir
+    path: ./resources/[utilities]
+
+  - action: ensure_dir
+    path: ./resources/[oxe]
+  - action: ensure_dir
+    path: ./resources/[oxe]/[vehicle]
+
+  - action: ensure_dir
+    path: ./resources/[creators]
+
+  - action: ensure_dir
+    path: ./resources/[stream]
+  - action: ensure_dir
+    path: ./resources/[stream]/[maps]
+  - action: ensure_dir
+    path: ./resources/[stream]/[vehicles]
+  - action: ensure_dir
+    path: ./resources/[stream]/[shells]
+  - action: ensure_dir
+    path: ./resources/[stream]/[clothing]
+  - action: ensure_dir
+    path: ./resources/[stream]/[props]
+
+  # ------------------------------------------------------------
+  # 3) Database connection (before any query_database)
+  # ------------------------------------------------------------
+  - action: connect_database
+
+  # ------------------------------------------------------------
+  # 4) CFX default resources
+  # ------------------------------------------------------------
+  - action: download_github
+    src: https://github.com/citizenfx/cfx-server-data
+    subpath: resources
+    dest: ./resources/[cfx-default]
+
+  - action: remove_path
+    path: ./resources/[cfx-default]/[gameplay]/chat
+
+  # ------------------------------------------------------------
+  # 5) Standalone resources
+  # ------------------------------------------------------------
+  - action: download_file
+    path: ./tmp/illenium-appearance.zip
+    url: https://github.com/iLLeniumStudios/illenium-appearance/releases/latest/download/illenium-appearance.zip
+  - action: unzip
+    dest: ./resources/[standalone]
+    src: ./tmp/illenium-appearance.zip
+
+  - action: download_github
+    src: https://github.com/BaziForYou/MugShotBase64
+    ref: main
+    dest: ./resources/[standalone]/MugShotBase64
+
+  - action: download_github
+    src: https://github.com/qbox-project/safecracker
+    ref: main
+    dest: ./resources/[standalone]/safecracker
+
+  - action: download_file
+    path: ./tmp/screencapture.zip
+    url: https://github.com/itschip/screencapture/releases/latest/download/screencapture.zip
+  - action: unzip
+    dest: ./resources/[standalone]
+    src: ./tmp/screencapture.zip
+
+  - action: download_github
+    src: https://github.com/qbox-project/mhacking
+    ref: main
+    dest: ./resources/[standalone]/mhacking
+
+  - action: waste_time
+    seconds: 10
+
+  - action: download_github
+    src: https://github.com/Scullyy/scully_emotemenu
+    ref: main
+    dest: ./resources/[standalone]/scully_emotemenu
+
+  - action: download_github
+    src: https://github.com/ultrahacx/ultra-voltlab
+    ref: main
+    dest: ./resources/[standalone]/ultra-voltlab
+
+  - action: download_github
+    src: https://github.com/Bob74/bob74_ipl
+    ref: master
+    dest: ./resources/[standalone]/bob74_ipl
+
+  - action: download_file
+    path: ./tmp/screenshot-basic.zip
+    url: https://github.com/project-error/screenshot-basic/releases/latest/download/screenshot-basic.zip
+  - action: unzip
+    dest: ./resources/[standalone]
+    src: ./tmp/screenshot-basic.zip
+
+  - action: download_github
+    src: https://github.com/Xogy/xsound
+    ref: master
+    dest: ./resources/[standalone]/xsound
+
+  - action: download_file
+    path: ./tmp/vehiclehandler.zip
+    url: https://github.com/QuantumMalice/vehiclehandler/releases/latest/download/vehiclehandler.zip
+  - action: unzip
+    dest: ./resources/[standalone]
+    src: ./tmp/vehiclehandler.zip
+
+  # ------------------------------------------------------------
+  # 6) Overextended / OX stack
+  # ------------------------------------------------------------
+  - action: download_file
+    path: ./tmp/ox_lib.zip
+    url: https://github.com/CommunityOx/ox_lib/releases/download/v3.32.2/ox_lib.zip
+  - action: unzip
+    dest: ./resources/[ox]
+    src: ./tmp/ox_lib.zip
+
+  - action: download_github
+    src: https://github.com/beastdummy/ox_target-redesign
+    ref: main
+    dest: ./resources/[ox]/ox_target
+
+  - action: download_file
+    path: ./tmp/oxmysql.zip
+    url: https://github.com/overextended/oxmysql/releases/latest/download/oxmysql.zip
+  - action: unzip
+    dest: ./resources/[ox]
+    src: ./tmp/oxmysql.zip
+
+  # ------------------------------------------------------------
+  # 7) Voice
+  # ------------------------------------------------------------
+  - action: download_github
+    src: https://github.com/AvarianKnight/pma-voice
+    ref: main
+    dest: ./resources/[voice]/pma-voice
+
+  # ------------------------------------------------------------
+  # 8) Qbox core + addons
+  # ------------------------------------------------------------
+  - action: download_github
+    src: https://github.com/qbox-project/qbx_core
+    ref: main
+    dest: ./resources/[core]/qbx_core
+
+  - action: query_database
+    file: ./resources/[core]/qbx_core/qbx_core.sql
+
+  - action: download_github
+    src: https://github.com/qbox-project/qbx_vehicles
+    ref: main
+    dest: ./resources/[qbx_addons]/qbx_vehicles
+
+  - action: query_database
+    file: ./resources/[qbx_addons]/qbx_vehicles/vehicles.sql
+
+  - action: download_github
+    src: https://github.com/qbox-project/qbx_garages
+    ref: main
+    dest: ./resources/[qbx_addons]/qbx_garages
+
+  - action: download_github
+    src: https://github.com/qbox-project/qbx_ambulancejob
+    ref: main
+    dest: ./resources/[qbx_addons]/qbx_ambulancejob
+
+  - action: download_github
+    src: https://github.com/qbox-project/qbx_medical
+    ref: main
+    dest: ./resources/[qbx_addons]/qbx_medical
+
+  - action: download_github
+    src: https://github.com/qbox-project/qbx_radialmenu
+    ref: main
+    dest: ./resources/[qbx_addons]/qbx_radialmenu
+
+  - action: download_github
+    src: https://github.com/qbox-project/qbx_police
+    ref: main
+    dest: ./resources/[qbx_addons]/qbx_police
+
+  - action: download_github
+    src: https://github.com/qbox-project/qbx_vehiclekeys
+    ref: main
+    dest: ./resources/[qbx_addons]/qbx_vehiclekeys
+
+  - action: download_github
+    src: https://github.com/qbox-project/qbx_smallresources
+    ref: main
+    dest: ./resources/[qbx_addons]/qbx_smallresources
+
+  - action: download_github
+    src: https://github.com/Qbox-project/qbx_idcard
+    ref: main
+    dest: ./resources/[qbx_addons]/qbx_idcard
+
+  - action: download_github
+    src: https://github.com/Qbox-project/qbx_binoculars
+    ref: main
+    dest: ./resources/[qbx_addons]/qbx_binoculars
+
+  - action: download_github
+    src: https://github.com/Qbox-project/qbx_density
+    ref: main
+    dest: ./resources/[qbx_addons]/qbx_density
+
+  # ------------------------------------------------------------
+  # 9) Cleanup
+  # ------------------------------------------------------------
+  - action: remove_path
+    path: ./tmp
