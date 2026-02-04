@@ -19,7 +19,7 @@ tasks:
   # 1) Base files (from your txAdminRecipe repo)
   # ------------------------------------------------------------
   - action: download_github
-    src: https://github.com/oxe-Server-Pack/txAdminRecipe/
+    src: https://github.com/beastdummy/txAdminRecipe
     ref: main
     dest: ./tmp/oxe
 
@@ -276,3 +276,4 @@ tasks:
   # ------------------------------------------------------------
   - action: remove_path
     path: ./tmp
+
